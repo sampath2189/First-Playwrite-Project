@@ -30,8 +30,7 @@ test("Single ticket booking is eligible for refund", async ({page})=>{
     expect(bookingRef.charAt(0)).toBe(eventTitle.charAt(0));
     await page.locator("button[data-testid='check-refund-btn']").click();
     await expect(page.getByText("Checking your refund eligibility…")).toBeVisible();
-    await page.waitForTimeout(6000);
-    await expect(page.getByText("Checking your refund eligibility…")).not.toBeVisible();
+    await expect(page.getByText("Checking your refund eligibility…")).not.toBeVisible({ timeout: 6000 });
     const refundResult = page.locator("#refund-result");
     await expect(refundResult).toBeVisible();
     await expect(refundResult).toContainText("Eligible for refund");
@@ -62,8 +61,7 @@ test("Group ticket booking is NOT eligible for refund", async ({ page }) => {
     expect(bookingRef.charAt(0)).toBe(eventTitle.charAt(0));
     await page.locator("button[data-testid='check-refund-btn']").click();
     await expect(page.getByText("Checking your refund eligibility…")).toBeVisible();
-    await page.waitForTimeout(6000);
-    await expect(page.getByText("Checking your refund eligibility…")).not.toBeVisible();
+    await expect(page.getByText("Checking your refund eligibility…")).not.toBeVisible({ timeout: 6000 });
     const refundResult = page.locator("#refund-result");
     await expect(refundResult).toContainText("Not eligible for refund");
     await expect(refundResult).toContainText("Group bookings (3 tickets) are non-refundable");
